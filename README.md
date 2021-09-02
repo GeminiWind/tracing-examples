@@ -4,7 +4,7 @@ This project contains common example of implement tracing in the real world. All
 
 | Project | Description|
 |:--:|:--:|
-|[basic-example]('./basic-example')| Example of basic tracing with default and no customization |
+|[basic-example](https://github.com/GeminiWind/tracing-examples/blob/master/basic-example)| Example of basic tracing with default and no customization |
 
 ## Terminology
 
