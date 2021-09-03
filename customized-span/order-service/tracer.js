@@ -6,6 +6,8 @@ const { SimpleSpanProcessor } = require("@opentelemetry/tracing");
 const { ZipkinExporter } = require("@opentelemetry/exporter-zipkin");
 const { registerInstrumentations } = require("@opentelemetry/instrumentation");
 const opentelemetry = require("@opentelemetry/api");
+const { HttpInstrumentation } = require("@opentelemetry/instrumentation-http");
+const { ExpressInstrumentation } = require('@opentelemetry/instrumentation-express');
 
 const init = () =>  {
   const provider = new NodeTracerProvider({
@@ -27,7 +29,10 @@ const init = () =>  {
   provider.register();
 
   registerInstrumentations({
-    instrumentations: [],
+    instrumentations: [
+      new HttpInstrumentation(),
+      new ExpressInstrumentation(),
+    ],
   });
 
   return opentelemetry.trace.getTracer("order-service");
