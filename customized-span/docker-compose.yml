@@ -4,18 +4,17 @@ services:
   order-service:
     build: ./order-service
     ports:
-      - "3001:3001"
+      - "${ORDER_SERVICE_PORT:-3001}:3001"
     environment:
       - ZIPKIN_HOST=http://zipkin-exporter:9411
-      - ORDER_SERVICE_POST=3001
+      - SHIPMENT_SERVICE_URL=http://shipment-service:3002
   shipment-service:
     build: ./shipment-service
     ports:
-      - "3002:3002"
+      - "${SHIPMENT_SERVICE_PORT:-3002}:3002"
     environment:
       - ZIPKIN_HOST=http://zipkin-exporter:9411
-      - SHIPMENT_SERVICE_POST=3002
   zipkin-exporter:
     image: openzipkin/zipkin
     ports:
-      - "9411:9411"
+      - "${ZIPKIN_PORT:-9411}:9411"

@@ -9,7 +9,7 @@ const tracer = initTracer();
 
 const express = require('express');
 const app = express();
-const port = process.env.ORDER_SERVICE_PORT || 3001;
+const port = process.env.PORT || 3001;
 
 
 app.get('/orders/:id', async (req, res) => {
