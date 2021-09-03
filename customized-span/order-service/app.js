@@ -9,7 +9,7 @@ const tracer = initTracer();
 
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.ORDER_SERVICE_PORT || 3001;
 
 
 app.get('/orders/:id', async (req, res) => {
@@ -20,7 +20,7 @@ app.get('/orders/:id', async (req, res) => {
     attributes: {
       [SemanticAttributes.HTTP_METHOD]: "GET",
       [SemanticAttributes.HTTP_FLAVOR]: "1.1",
-      [SemanticAttributes.HTTP_URL]: "http://shipment-service:3002/shipments",
+      [SemanticAttributes.HTTP_URL]: `${process.env.SHIPMENT_SERVICE_URL}/shipments`,
     },
     kind: api.SpanKind.SERVER
   });
@@ -29,7 +29,7 @@ app.get('/orders/:id', async (req, res) => {
 
 
   try {
-    const { data: shipments } = await axios.get(`http://shipment-service:3002/shipments?orderId=${orderId}`);
+    const { data: shipments } = await axios.get(`${process.env.SHIPMENT_SERVICE_URL}/shipments?orderId=${orderId}`);
 
     if (shipments) {
       span.setAttribute("http.status_code", 200);
